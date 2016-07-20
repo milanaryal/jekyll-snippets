@@ -1,0 +1,23 @@
+---
+# Setup in '_config.yml' file to active paginator
+
+gems: ["jekyll-paginate"]
+paginate_path: /page/:num/
+paginate: 10
+---
+
+<!-- Pager -->
+{% if paginator.total_pages > 1 %}
+  <ul class="pager">
+    {% if paginator.previous_page %}
+      <li class="previous">
+        <a href="{{ paginator.previous_page_path | replace:'//','/' | replace:'/index.html','/' }}">Newer</a>
+      </li>
+    {% endif %}
+    {% if paginator.next_page %}
+      <li class="next">
+        <a href="{{ paginator.next_page_path | replace:'//','/' | replace:'/index.html','/' }}">Older</a>
+      </li>
+    {% endif %}
+  </ul>
+{% endif %}

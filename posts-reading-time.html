@@ -1,0 +1,10 @@
+{% comment %}
+  Paste within a post layout. Change `content` to `page.content` if used within a layout file.
+{% endcomment %}
+
+{% assign reading_time = content | strip_html | number_of_words | plus:91 | divided_by:180 %}
+{% if reading_time <= 1 %}
+  {% assign reading_time = '1' | append:' min read' %}
+{% else %}
+  {% assign reading_time = reading_time | append:' min read' %}
+{% endif %}
