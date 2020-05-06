@@ -15,3 +15,4 @@ Collection of commonly used snippets for Jekyll sites.
 * [Jekyll Themes](http://jekyllthemes.org/)
 * [Jekyll Tips](http://jekyll.tips/)
 * [Instant Search with Twitter Bootstrap, Jekyll, JSON, and jQuery](https://thornelabs.net/2014/05/12/instant-search-with-twitter-bootstrap-jekyll-json-and-jquery.html)
+* [jekyll-pygments-themes](https://github.com/jwarby/jekyll-pygments-themes)
