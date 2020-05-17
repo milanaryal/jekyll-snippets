@@ -8,7 +8,7 @@
   'use strict';
 
   function generateRandomPosts () {
-    fetch('/randomi.json')
+    fetch('/posts.json')
       .then(function(response) {
         return response.json();
       })
@@ -18,7 +18,7 @@
         var contents = '';
         var numberOfPosts = 5;
 
-        console.log('Loaded [randomi.json] for random posts.');
+        console.log('Loaded [posts.json] for random posts.');
 
         for (var count = 0; count < numberOfPosts; ++count) {
             // Generate an random index
@@ -26,11 +26,12 @@
             // Get the post
             var post = json[index];
             // Random post metadata
-            var url = post.u;
-            var title = post.t;
-            var excerpt = post.e;
-            var readTime = post.r;
-            var date = post.d;
+            var url = post.url;
+            var title = post.title;
+            var excerpt = post.summary;
+            var readTime = post.reading_time;
+            var date = post.date_published;
+            // Template
             var link = '<div class="random-posts-item clearfix">' +
                           '<a href="' + url + '">' +
                             '<h3 class="random-posts-item-title">' + title + '</h3>' +
