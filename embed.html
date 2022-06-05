@@ -1,0 +1,54 @@
+{%- if include.src and include.src != empty -%}
+  {%- assign embed_provider = include.src | strip | downcase -%}
+{%- endif -%}
+
+{%- if include.id and include.id != empty -%}
+  {%- assign embed_id = include.id | strip -%}
+{%- endif -%}
+
+{%- if include.user and include.user != empty -%}
+  {%- assign embed_creator = include.user | strip -%}
+{%- endif -%}
+
+{%- if embed_id -%}
+  {%- capture embed_src -%}
+    {%- case embed_provider -%}
+      {%- when "youtube" -%}
+        https://www.youtube-nocookie.com/embed/{{- embed_id -}}?rel=0&amp;modestbranding=1&amp;showinfo=0&amp;hd=1&amp;theme=light
+      {%- when "vimeo" -%}
+        https://player.vimeo.com/video/{{- embed_id -}}?dnt=true
+      {%- when "google-drive" -%}
+        https://drive.google.com/file/d/{{- embed_id -}}/preview
+      {%- when "slideshare" -%}
+        https://www.slideshare.net/slideshow/embed_code/{{- embed_id -}}
+      {%- when "gist" -%}
+        https://gist.github.com/{{- embed_creator -}}/{{- embed_id -}}.pibb?scroll=true
+      {%- when "codepen" -%}
+        https://codepen.io/{{- embed_creator -}}/embed/{{- embed_id -}}?default-tab=html%2Cresult
+    {%- endcase -%}
+  {%- endcapture -%}
+{%- endif -%}
+
+{% unless embed_src == empty %}
+  {%- assign embed_src = embed_src | strip | escape_once -%}
+  {%- capture iframe -%}
+    {% if embed_provider == "youtube" or embed_provider == "google-drive" or embed_provider == "vimeo" %}
+      <iframe src="{{ embed_src }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture" allowfullscreen="true"></iframe>
+    {% elsif embed_provider == "codepen" or embed_provider == "gist" %}
+      <iframe src="{{ embed_src }}" loading="lazy" allowtransparency="true" allow="fullscreen" allowfullscreen="true"></iframe>
+    {% else %}
+      <iframe src="{{ embed_src }}" allow="fullscreen" allowfullscreen="true"></iframe>
+    {% endif %}
+  {%- endcapture -%}
+  <div class="embed">
+    <!-- 16:9 aspect ratio -->
+    <div class="ratio ratio-16x9">
+      {{ iframe }}
+    </div>
+    {% if include.caption %}
+      <div class="embed-caption">
+        {{ include.caption | markdownify | remove: "<p>" | remove: "</p>" }}
+      </div>
+    {% endif %}
+  </div>
+{% endunless %}
